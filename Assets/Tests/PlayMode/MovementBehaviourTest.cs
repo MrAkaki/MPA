@@ -1,30 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using Movement;
 using NSubstitute;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class MovementBehaviourTest
+public class MovementBehaviourTest : BaseTestSuite
 {
     GameObject _ground;
 
     GameObject _gameObject;
     MovementBehaviour _movementBehaviour;
-    private IEnumerator RunFrames(int numberOfFrames)
-    {
-        yield return null; // Awake
-        yield return null; // Start
-        for (int i = 0; i < numberOfFrames; ++i)
-        {
-            yield return null; // Update
-        }
-    }
 
     [OneTimeSetUp]
     public void OneTimeSetup()
     {
+        Time.timeScale = 20.0f;
         _ground = GameObject.CreatePrimitive(PrimitiveType.Cube);
         _ground.transform.localScale = new Vector3(10, 1, 10);
         _ground.transform.localPosition = new Vector3(0, -1.6f, 0);
@@ -33,7 +24,7 @@ public class MovementBehaviourTest
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
-        Object.Destroy(_ground);
+        Object.DestroyImmediate(_ground);
     }
 
     [SetUp]
